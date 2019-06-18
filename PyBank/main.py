@@ -35,7 +35,7 @@ with open(csvpath, newline='') as csvfile:
    change_list = []
    date_list = []
    
-#   Reading the header row and exclude from analysis.
+#   Using Sniffer to read header and exclude from analysis.
    if csv.Sniffer().has_header:
        next(csvreader) 
    #print(f"CSV Header: {csv_header}")
@@ -70,7 +70,7 @@ with open(csvpath, newline='') as csvfile:
        lowest_date = date_list[lowest_index]
 
 
-#  Printing total outcome
+#  Printing outcome
    print("Financial Analysis")
    print("---------------------------------------")
    print(f"Total Months: {total_months}")
