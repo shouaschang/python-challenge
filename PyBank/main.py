@@ -13,27 +13,73 @@
 # 4. The greatest increase in profits (date and amount) over the entire period
 # 5. The greatest decrease in losses (date and amount) over the entire period
 
-# Importing packages for CSV file
+#   Importing dependencies for CSV file
 import os
 import csv
 
-# Loading CSV file source
+
+#   Loading CSV file
 csvpath = os.path.join(".", 'Resources', 'budget_data.csv')
 
+#   Opening and reading the CSV file
 with open(csvpath, newline='') as csvfile:
-    csvreader = csv.reader(csvfile, delimiter = ',')
-    
-    # data = list(csvreader)
-    # row_count = len(data) #total of 87 rows
-    # print(len(data))
-    # print(csvreader)
-    
-#   csv_header = next(csvreader)
-#   print(f"CSV Header: {csv_header}")
-    
-#   for row in csvreader:
-#       print(row)
-    
-    
+   csvreader = csv.reader(csvfile, delimiter = ',')
+
+
+#   Variables needed for the tasks
+   total_months = 0
+   net_total = 0
+   avg_profit_change = 0
+   change = 0
+   change_value = 0
+   change_list = []
+   date_list = []
+   
+   
+#   Reading the header row and exclude from analysis.
+   if csv.Sniffer().has_header:
+       next(csvreader) 
+   #print(f"CSV Header: {csv_header}")
+   #for row in csvreader:
+       #print(row)
+   
+
+   for row in csvreader:
+       #1. Total months included in dataset
+       total_months += 1
+       
+       #2. The net total amont of "Profit/Losses"
+       totalamt = int(row[1])
+       net_total += totalamt
+       
+       #3. The average of changes in "Profit/Losses over the entire period, but must calculate total changes first.
+       #    Create a separate list to hold those change values.
+       change = int(row[1])-change_value
+       change_list.append(change)
+       change_value = int(row[1])
+       avg_profit_change = sum(change_list)/len(change_list)
+
+       #4. The greatest increase in profits (date and amount) over the entire period, but must create a list for dates first.
+       date_list.append(row[0])
+       greatest_increase = max(change_list)
+       greatest_index = change_list.index(greatest_increase)
+       greatest_date = date_list[greatest_index]
+       
+       
+       #5. The greatest decrease in losses (date and amount) over the entire period. Use list created for dates.       
+       greatest_decrease = min(change_list)
+       lowest_index = change_list.index(greatest_decrease)
+       lowest_date = date_list[lowest_index]
+
+
+#  Printing total outcome
+   print("Financial Analysis")
+   print("---------------------------------------")
+   print(f"Total Months: {total_months}")
+   print(f"Total: ${net_total}")
+   print(f"Average Change: ${str(round(avg_profit_change,2))}")
+   print(f"Greatest Increase in Profits: {greatest_date} (${greatest_increase})")
+   print(f"Greatest Decrease in Profits: {lowest_date} (${greatest_decrease})")   
+   print("---------------------------------------")
  
  
