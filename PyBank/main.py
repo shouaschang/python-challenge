@@ -17,7 +17,6 @@
 import os
 import csv
 
-
 #   Loading CSV file
 csvpath = os.path.join(".", 'Resources', 'budget_data.csv')
 
@@ -25,16 +24,16 @@ csvpath = os.path.join(".", 'Resources', 'budget_data.csv')
 with open(csvpath, newline='') as csvfile:
    csvreader = csv.reader(csvfile, delimiter = ',')
 
-
 #   Variables needed for the tasks
    total_months = 0
    net_total = 0
    avg_profit_change = 0
    change = 0
    change_value = 0
+   
+#    Lists needed for the tasks
    change_list = []
    date_list = []
-   
    
 #   Reading the header row and exclude from analysis.
    if csv.Sniffer().has_header:
@@ -43,7 +42,7 @@ with open(csvpath, newline='') as csvfile:
    #for row in csvreader:
        #print(row)
    
-
+#    Analysis
    for row in csvreader:
        #1. Total months included in dataset
        total_months += 1
@@ -52,8 +51,8 @@ with open(csvpath, newline='') as csvfile:
        totalamt = int(row[1])
        net_total += totalamt
        
-       #3. The average of changes in "Profit/Losses over the entire period, but must calculate total changes first.
-       #    Create a separate list to hold those change values.
+       #3. The average of changes in "Profit/Losses over the entire period.
+       #    But must calculate total changes first. Create a separate list to hold those change values (change_list).
        change = int(row[1])-change_value
        change_list.append(change)
        change_value = int(row[1])
@@ -64,7 +63,6 @@ with open(csvpath, newline='') as csvfile:
        greatest_increase = max(change_list)
        greatest_index = change_list.index(greatest_increase)
        greatest_date = date_list[greatest_index]
-       
        
        #5. The greatest decrease in losses (date and amount) over the entire period. Use list created for dates.       
        greatest_decrease = min(change_list)
