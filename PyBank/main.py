@@ -80,4 +80,14 @@ with open(csvpath, newline='') as csvfile:
    print(f"Greatest Decrease in Profits: {lowest_date} (${greatest_decrease})")   
    print("---------------------------------------")
  
+ #  Exporting to PyBank_output.txt file
+file = open('PyBank_out.txt', 'w')
+message1 = "Financial Analysis"
+message2 = "---------------------------------------"
+message3 = str(f"Total Months: {total_months}")
+message4 = str(f"Total: ${net_total}")
+message5 = str(f"Average Change: ${str(round(avg_profit_change,2))}")
+message6 = str(f"Greatest Increase in Profits: {greatest_date} (${greatest_increase})")
+message7 = str(f"Greatest Decrease in Profits: {lowest_date} (${greatest_decrease})")   
+message8 = "---------------------------------------"
  
